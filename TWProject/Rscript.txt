@@ -1,0 +1,38 @@
+
+results = read.csv("thefile3.txt")
+
+
+avg_results = aggregate(T~P:A, data=results, FUN=mean)
+Algo1 = avg_results[avg_results$A=="1",]
+Algo2 = avg_results[avg_results$A=="2",]
+Algo1A = Algo1[Algo1$P<100,]
+Algo2A = Algo2[Algo2$P<100,]
+Algo1B = Algo1[Algo1$P<10,]
+Algo2B = Algo2[Algo2$P<10,]
+
+svg(file="dataout.svg", height=8, width=12, bg="white")
+
+
+plot(Algo1$T ~ Algo1$P, type="o", lty = 1, col="blue", xlab = "Number of producers, equal to number of consumers", ylab = "Time [ms]") 
+lines(Algo2$T ~ Algo2$P, type = "o", lty = 1, col="red")
+legend("topleft", c("Monitor","Active Object"),col=c("blue","red"),lty=1:2)
+
+dev.off()
+
+svg(file="dataout1.svg", height=8, width=12, bg="white")
+
+
+plot(Algo1A$T ~ Algo1A$P, type="o", lty = 1, col="blue", xlab = "Number of producers, equal to number of consumers", ylab = "Time [ms]") 
+lines(Algo2A$T ~ Algo2A$P, type = "o", lty = 1, col="red")
+legend("topleft", c("Monitor","Active Object"),col=c("blue","red"),lty=1:2)
+
+dev.off()
+
+svg(file="dataout2.svg", height=8, width=12, bg="white")
+
+
+plot(Algo1B$T ~ Algo1B$P, type="o", lty = 1, col="blue", xlab = "Number of producers, equal to number of consumers", ylab = "Time [ms]") 
+lines(Algo2B$T ~ Algo2B$P, type = "o", lty = 1, col="red")
+legend("topleft", c("Monitor","Active Object"),col=c("blue","red"),lty=1:2)
+
+dev.off()
